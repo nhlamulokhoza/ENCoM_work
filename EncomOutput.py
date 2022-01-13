@@ -7,7 +7,7 @@ import re
 import warnings
 
 class Encom:
-    # Collects eigenvectors and eigenvalues from encom output file                                                                                                                                                                            
+    # Get eigenvectors and eigenvalues from ENCoM's .eigen output file 
     def __init__(self, eigenfile):
         self.eigenfile = eigenfile
         self.eigenvalues = []
@@ -34,9 +34,10 @@ class Encom:
         self.eigenvalues = eigenvalues
         self.eigenvectors = eigenvectors
 
-wt_encom = Encom("CYP2F1_WT.eigen")
-mut_encom = Encom("CYP2F1_3.001.eigen")
+# wt_encom = Encom("CYP2F1_WT.eigen")
+# mut_encom = Encom("CYP2F1_3.001.eigen")
 
+# Calculate RMSIP using data from ENCoM
 def calRMSIP(subspace1, subspace2, n = 50):
     if (isinstance(subspace1, Encom) and isinstance(subspace2, Encom)):
         subspace1.parse_eigen()
@@ -51,6 +52,7 @@ def calRMSIP(subspace1, subspace2, n = 50):
     else: 
         raise TypeError ('Arguments must be instances of class Encom')
 
+# Convert ENCoM output to entropy
 def getEntropy(wt_subspace, mut_subspace):
     if (isinstance(wt_subspace, Encom) and isinstance(mut_subspace, Encom)):
         wt_subspace.parse_eigen()
@@ -62,6 +64,7 @@ def getEntropy(wt_subspace, mut_subspace):
         # deltaS_vib 
         return np.log(np.prod(fraction_eigenvalues))
 
+# load input files. CYP2F1 was used here 
 mut_encom = Encom( "CYP2F1_3.001.eigen" )
 mut_encom.parse_eigen()
 mut_eigenvectors = mut_encom.eigenvectors
@@ -73,4 +76,5 @@ mut_eigenvalues = wt_encom.eigenvalues
 rmsip=""
 entropy = str( round(getEntropy(mut_encom, wt_encom), 3))
 
+# print change in entropy between wildtype and mutant.
 print(entropy)
