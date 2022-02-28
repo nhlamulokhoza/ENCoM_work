@@ -75,6 +75,6 @@ mut_eigenvalues = wt_encom.eigenvalues
 rmsip = str(calRMSIP(mut_encom, wt_encom))
 entropy = str(round(getEntropy(mut_encom, wt_encom), 3))
 
-# print change in entropy between wildtype and mutant.
+# print change in entropy and RMSIP between wildtype and mutant.
 print("entropy =", entropy, "kcal/mol")
 print("rmsip =", rmsip)
